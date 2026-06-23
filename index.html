@@ -101,6 +101,14 @@
   .chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;color:#334155}
   .chips button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
   .mnote{margin:14px 20px 0;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:10px;padding:11px 14px;font-size:13px;line-height:1.6;white-space:pre-wrap}
+  .help{padding:20px}
+  .help h4{margin:18px 0 6px;font-size:15px;color:#0f172a}
+  .help h4:first-child{margin-top:0}
+  .help p,.help li{font-size:14px;line-height:1.7;color:#334155}
+  .help ol{padding-left:20px;margin:0}.help ol li{margin-bottom:8px}
+  .help .k{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:1px 6px;font-size:13px;font-weight:700;color:#334155}
+  .help .badge2{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
+  .help .tip2{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:10px;padding:10px 13px;font-size:13px;margin-top:8px}
   @media(max-width:640px){.mbody{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hide-sm{display:none}.types{grid-template-columns:repeat(2,1fr)}}
 
   /* print */
@@ -129,6 +137,7 @@
       <datalist id="nameOptions"></datalist>
       <button class="btn full" onclick="doLogin()">입장하기</button>
     </div>
+    <button class="btn ghost sm" style="margin-top:14px" onclick="openHelp()">❓ 사용 방법 보기</button>
   </div>
 </div>
 
@@ -140,6 +149,7 @@
       <div class="who"><span id="whoName"></span> 님 · 예배 <select id="svcSel" onchange="switchService()"></select></div>
     </div>
     <div style="display:flex;gap:8px">
+      <button class="btn ghost sm" onclick="openHelp()" title="사용 방법">❓ 사용방법</button>
       <button class="btn ghost sm" onclick="refresh()" title="새로고침">🔄</button>
       <button class="btn ghost sm" onclick="newServicePrompt()">＋ 새 예배</button>
       <button class="btn ghost sm" onclick="logout()">나가기</button>
@@ -305,6 +315,47 @@
   </div>
 </div>
 
+<!-- help modal -->
+<div class="modal" id="helpModal">
+  <div class="mbox" style="max-width:640px">
+    <header><h3>❓ 사용 방법</h3><button class="x" onclick="closeHelp()">✕</button></header>
+    <div class="help">
+      <h4>🔑 처음 들어가기 (공통)</h4>
+      <ol>
+        <li><b>주소 접속</b> 후 <b>공용 비밀번호</b> + <b>본인 이름</b>을 입력해 들어갑니다.</li>
+        <li>화면 위에서 <b>예배(날짜)</b>를 고릅니다. 없으면 <span class="k">＋ 새 예배</span> → 날짜를 클릭하고 종류 버튼(주일 오전예배 등)을 누르세요.</li>
+      </ol>
+      <div class="tip2">📱 휴대폰은 브라우저 메뉴에서 <b>“홈 화면에 추가”</b> 해두면 앱처럼 빠르게 열려요.</div>
+
+      <span class="badge2">자료 올리는 분</span>
+      <h4>📥 자료 올리기</h4>
+      <ol>
+        <li><b>📥 자료 올리기</b> 탭 → <b>종류 선택</b> (🎵찬양 / 📖성경 / ✝️설교 / 📢광고)</li>
+        <li><b>예배 순서</b>·<b>제목</b> 입력 후 내용 작성
+          <ul style="margin:6px 0;padding-left:18px">
+            <li>🎵 찬양: 가사 — <b>절 사이는 빈 줄</b>로 띄우면 슬라이드 자동 분할</li>
+            <li>📖 성경: <b>장·절만</b> (예: <span class="k">시편 23:1-4</span>)</li>
+            <li>✝️ 설교: 제목·대지 / 📢 광고: 내용</li>
+          </ul>
+        </li>
+        <li><b>📎 콘티 첨부</b>(선택) — 사진 여러 장·PDF 끌어다 놓기 (직접 입력 대신/함께)</li>
+        <li><b>📝 설명(콘티 순서)</b>(선택) — 예: <span class="k">1절 → 후렴 → 2절</span></li>
+        <li><b>＋ 등록하기</b> → 끝! (잘못 올리면 검수보드에서 삭제 후 다시)</li>
+      </ol>
+
+      <span class="badge2">방송실 자막 담당</span>
+      <h4>✅ 검수 & 내보내기</h4>
+      <ol>
+        <li><b>✅ 검수 보드</b> — 예배 순서대로 정렬. 📎첨부·💬설명 표시, <b>누락 항목 자동 알림</b>, 새 자료 <b>실시간 갱신</b></li>
+        <li><b>“확인하기”</b> → 미리보기(슬라이드·콘티·설명) 확인 후 <b>✓ 검수완료</b></li>
+        <li><b>⬇️ ProPresenter용 전체 내보내기(.txt)</b> → ProPresenter <b>[텍스트 가져오기]</b>로 불러오면 빈 줄마다 새 슬라이드 생성</li>
+        <li>📖 성경은 ProPresenter 내장 <b>개역개정</b>에서 해당 장·절을 불러오면 됩니다.</li>
+      </ol>
+      <div class="tip2">📋 <b>지난 예배 가져오기</b>로 반복 자료 재활용 · 🎵 <b>찬양 저장고</b>에 자주 쓰는 곡 저장 · 🖨️ <b>인쇄</b>로 순서지 출력</div>
+    </div>
+  </div>
+</div>
+
 <div id="print"></div>
 <div class="toast" id="toast"></div>
 
@@ -336,6 +387,7 @@ function boot(){
  document.querySelector('[data-tab=settings]').addEventListener('click',openSettings);
  document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
  document.getElementById('svcModal').addEventListener('click',e=>{if(e.target.id==='svcModal')closeSvcModal();});
+ document.getElementById('helpModal').addEventListener('click',e=>{if(e.target.id==='helpModal')closeHelp();});
 }
 
 async function loadSettings(){
@@ -602,6 +654,8 @@ function openModal(id){
  document.getElementById('modal').classList.add('on');
 }
 function closeModal(){ document.getElementById('modal').classList.remove('on'); }
+function openHelp(){ document.getElementById('helpModal').classList.add('on'); }
+function closeHelp(){ document.getElementById('helpModal').classList.remove('on'); }
 async function toggleStatus(){
  const id=mItem.id, ns=mItem.status==='ok'?'wait':'ok';
  const {error}=await sb.from('items').update({status:ns}).eq('id',id);
