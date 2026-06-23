@@ -100,6 +100,7 @@
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
   .chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-size:13px;color:#334155}
   .chips button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .mnote{margin:14px 20px 0;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:10px;padding:11px 14px;font-size:13px;line-height:1.6;white-space:pre-wrap}
   @media(max-width:640px){.mbody{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hide-sm{display:none}.types{grid-template-columns:repeat(2,1fr)}}
 
   /* print */
@@ -189,7 +190,7 @@
 
         <!-- generic body -->
         <div id="bodyBox">
-          <label id="bodyLabel">가사 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)</label>
+          <label id="bodyLabel">가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)</label>
           <textarea id="f_body" placeholder="가사를 붙여넣으세요"></textarea>
           <div style="margin-top:8px" id="songFromLib">
             <button class="btn ghost sm" onclick="tab('lib',document.querySelector('[data-tab=lib]'))">🎵 저장고에서 불러오기</button>
@@ -204,6 +205,11 @@
             <div id="filePreview"></div>
           </div>
           <input type="file" id="fileInput" multiple style="display:none" accept="image/*,.pdf,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleFiles(this.files)">
+        </div>
+
+        <div>
+          <label>설명 (콘티 순서·메모) <span style="font-weight:400;color:#94a3b8">· 자막 담당자에게 전달 (선택)</span></label>
+          <textarea id="f_note" style="min-height:60px" placeholder="예: 1절 → 후렴 → 2절 → 후렴 / 콘티 3번부터 / 자막 크게"></textarea>
         </div>
 
         <button class="btn full" id="submitBtn" onclick="submitItem()">＋ 등록하기</button>
@@ -266,6 +272,7 @@
 <div class="modal" id="modal">
   <div class="mbox">
     <header><h3 id="mTitle"></h3><button class="x" onclick="closeModal()">✕</button></header>
+    <div id="mNote"></div>
     <div class="mbody">
       <div class="slides"><h4>슬라이드 미리보기 (송출 화면)</h4><div id="mSlides"></div><div id="mFile"></div></div>
       <div class="txtprev">
@@ -434,8 +441,8 @@ function pickType(t,btn){
  const lbl=document.getElementById('bodyLabel'), body=document.getElementById('bodyBox'), songLib=document.getElementById('songFromLib');
  body.style.display = t==='bible' ? 'none':'block';
  songLib.style.display = t==='song' ? 'block':'none';
- lbl.textContent = t==='song'?'가사 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'
-   : t==='ad'?'광고 내용' : t==='sermon'?'설교 본문/핵심 구절 (선택)':'내용';
+ lbl.textContent = t==='song'?'가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'
+   : t==='ad'?'광고 내용을 적으세요' : t==='sermon'?'설교 본문/핵심 구절 (선택)':'내용을 적으세요';
 }
 function addDaeji(){
  const d=document.createElement('div'); d.className='daeji';
@@ -505,13 +512,15 @@ async function submitItem(){
  }
  if(!title){ alert('제목을 입력하세요'); return; }
  if(!body && !pendingFiles.length){ alert('내용을 직접 입력하거나 파일을 첨부하세요'); return; }
+ const note=document.getElementById('f_note').value.trim();
 
  const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.textContent='등록 중…';
  try{
-  const {data,error}=await sb.from('items').insert({service_id:cur,type:curType,ord:order,title,author:ME,status:'wait',body}).select().single();
+  const {data,error}=await sb.from('items').insert({service_id:cur,type:curType,ord:order,title,author:ME,status:'wait',body,note}).select().single();
   if(error) throw error;
   if(pendingFiles.length){ const files=await uploadFiles(data.id); await sb.from('items').update({files}).eq('id',data.id); }
   document.getElementById('f_title').value='';document.getElementById('f_body').value='';
+  document.getElementById('f_note').value='';
   document.getElementById('f_ref').value='';
   document.getElementById('daejiList').innerHTML='<div class="daeji"><input placeholder="1. 첫째 대지"></div>';
   document.getElementById('f_order').value=order+1;
@@ -540,7 +549,7 @@ function render(){
   ${items.map(i=>`<tr ${i.status==='wait'?'style="background:#fffbeb"':''}>
     <td><span class="ord">${i.order}</span></td>
     <td><span class="badge ${TYPE[i.type][1]}">${TYPE[i.type][0]}</span></td>
-    <td>${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}</td>
+    <td>${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}${i.note?' 💬':''}</td>
     <td class="hide-sm who">${esc(i.author)}</td>
     <td><span class="st ${i.status==='ok'?'ok':'wait'}"><span class="dot ${i.status==='ok'?'ok':'wait'}"></span>${i.status==='ok'?'검수완료':'검수 대기'}</span></td>
     <td><button class="btn ${i.status==='ok'?'ghost':''} sm" onclick="openModal('${i.id}')">${i.status==='ok'?'미리보기':'확인하기 →'}</button></td>
@@ -565,6 +574,7 @@ function slidesOf(body){ return (body||'').split(/\n\s*\n/).map(s=>s.trim()).fil
 function openModal(id){
  mItem=DB.items.find(i=>i.id===id); if(!mItem) return;
  document.getElementById('mTitle').textContent=TYPE[mItem.type][0]+' — '+mItem.title;
+ document.getElementById('mNote').innerHTML = mItem.note ? `<div class="mnote">📝 <b>설명(콘티 순서)</b>: ${esc(mItem.note)}</div>` : '';
  const sl=slidesOf(mItem.body);
  document.getElementById('mSlides').innerHTML= sl.length
    ? sl.map(s=>`<div class="slide">${esc(s).replace(/\n/g,'<br>')}</div>`).join('')
@@ -662,7 +672,7 @@ async function copyFromLastPrompt(){
  const idx=parseInt(n)-1; if(isNaN(idx)||!others[idx])return;
  const {data:its}=await sb.from('items').select('*').eq('service_id',others[idx].id).order('ord');
  if(!its||!its.length){ alert('그 예배엔 자료가 없습니다.'); return; }
- const rows=its.map(it=>({service_id:cur,type:it.type,ord:it.ord,title:it.title,author:it.author,status:'wait',body:it.body,files:it.files}));
+ const rows=its.map(it=>({service_id:cur,type:it.type,ord:it.ord,title:it.title,author:it.author,status:'wait',body:it.body,files:it.files,note:it.note}));
  const {error}=await sb.from('items').insert(rows);
  if(error){ alert('가져오기 실패: '+error.message); return; }
  await refresh(); toast('지난 예배 자료를 가져왔습니다 (검수 대기)');
