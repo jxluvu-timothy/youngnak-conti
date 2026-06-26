@@ -26,6 +26,7 @@
   .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700}
   .b-song{background:#ede9fe;color:#6d28d9}.b-bible{background:#dbeafe;color:#1d4ed8}
   .b-sermon{background:#fce7f3;color:#be185d}.b-ad{background:#f1f5f9;color:#475569}
+  .b-choir{background:#fef3c7;color:#b45309}.b-audio{background:#dcfce7;color:#15803d}
 
   /* login */
   #login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px}
@@ -47,7 +48,7 @@
   h2.sec{font-size:16px;margin:0 0 4px}
   .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
 
-  .types{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .types button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px 4px;font-size:14px;color:#475569}
   .types button.on{border-color:var(--brand);background:#eff6ff;color:var(--brand-d);font-weight:700}
   .row{display:grid;grid-template-columns:120px 1fr;gap:12px}
@@ -171,10 +172,12 @@
         <h2 class="sec">자료 올리기</h2>
         <p class="sub">종류를 고르고 내용을 입력한 뒤 등록하세요.</p>
         <div class="types" id="typeBtns">
-          <button class="on" data-type="song" onclick="pickType('song',this)">🎵 찬양</button>
+          <button data-type="sermon" onclick="pickType('sermon',this)">✝️ 설교자막</button>
+          <button class="on" data-type="song" onclick="pickType('song',this)">🎵 찬양 콘티</button>
+          <button data-type="choir" onclick="pickType('choir',this)">🎼 성가대 자막</button>
           <button data-type="bible" onclick="pickType('bible',this)">📖 성경</button>
-          <button data-type="sermon" onclick="pickType('sermon',this)">✝️ 설교</button>
-          <button data-type="ad" onclick="pickType('ad',this)">📢 광고</button>
+          <button data-type="ad" onclick="pickType('ad',this)">📢 기타/광고</button>
+          <button data-type="audio" onclick="pickType('audio',this)">🎧 음원·링크</button>
         </div>
 
         <div class="row" style="margin-top:14px">
@@ -198,6 +201,13 @@
           <button class="btn ghost sm" style="margin-top:8px" onclick="addDaeji()">＋ 대지 추가</button>
         </div>
 
+        <!-- audio-only -->
+        <div id="audioBox" style="display:none">
+          <label>음원 링크 주소 (선택) — 유튜브·드라이브·웹하드 등</label>
+          <input id="f_link" placeholder="예: https://youtu.be/... 또는 드라이브 공유 링크">
+          <p class="hint">음원 파일은 아래 <b>파일 첨부</b>에 올리고(10MB 이하), 파일이 크거나 링크로 줄 때는 여기에 주소를 붙여넣으세요.</p>
+        </div>
+
         <!-- generic body -->
         <div id="bodyBox">
           <label id="bodyLabel">가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)</label>
@@ -214,7 +224,7 @@
             📎 여기로 파일을 끌어다 놓거나, 클릭해서 선택하세요 (여러 장 가능)
             <div id="filePreview"></div>
           </div>
-          <input type="file" id="fileInput" multiple style="display:none" accept="image/*,.pdf,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleFiles(this.files)">
+          <input type="file" id="fileInput" multiple style="display:none" accept="image/*,audio/*,.pdf,.mp3,.m4a,.wav,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleFiles(this.files)">
         </div>
 
         <div>
@@ -323,19 +333,20 @@
       <h4>🔑 처음 들어가기 (공통)</h4>
       <ol>
         <li><b>주소 접속</b> 후 <b>공용 비밀번호</b> + <b>본인 이름</b>을 입력해 들어갑니다.</li>
-        <li>화면 위에서 <b>예배(날짜)</b>를 고릅니다. 없으면 <span class="k">＋ 새 예배</span> → 날짜를 클릭하고 종류 버튼(주일 오전예배 등)을 누르세요.</li>
+        <li>화면 위에서 <b>예배(날짜)</b>를 고릅니다. 없으면 <span class="k">＋ 새 예배</span> → 날짜를 클릭하고 종류 버튼(주일 1부~4부·주일오후·수요/금요기도회·특별집회·청년예배)을 누르세요.</li>
       </ol>
       <div class="tip2">📱 휴대폰은 브라우저 메뉴에서 <b>“홈 화면에 추가”</b> 해두면 앱처럼 빠르게 열려요.</div>
 
       <span class="badge2">자료 올리는 분</span>
       <h4>📥 자료 올리기</h4>
       <ol>
-        <li><b>📥 자료 올리기</b> 탭 → <b>종류 선택</b> (🎵찬양 / 📖성경 / ✝️설교 / 📢광고)</li>
+        <li><b>📥 자료 올리기</b> 탭 → <b>종류 선택</b> (✝️설교자막 / 🎵찬양 콘티 / 🎼성가대 자막 / 📖성경 / 📢기타·광고 / 🎧음원·링크)</li>
         <li><b>예배 순서</b>·<b>제목</b> 입력 후 내용 작성
           <ul style="margin:6px 0;padding-left:18px">
-            <li>🎵 찬양: 가사 — <b>절 사이는 빈 줄</b>로 띄우면 슬라이드 자동 분할</li>
+            <li>🎵 찬양 콘티 · 🎼 성가대 자막: 가사 — <b>절 사이는 빈 줄</b>로 띄우면 슬라이드 자동 분할</li>
             <li>📖 성경: <b>장·절만</b> (예: <span class="k">시편 23:1-4</span>)</li>
-            <li>✝️ 설교: 제목·대지 / 📢 광고: 내용</li>
+            <li>✝️ 설교자막: 제목·대지 / 📢 기타·광고: 내용</li>
+            <li>🎧 음원·링크: 음원 파일 첨부 + 링크 주소 입력</li>
           </ul>
         </li>
         <li><b>📎 콘티 첨부</b>(선택) — 사진 여러 장·PDF 끌어다 놓기 (직접 입력 대신/함께)</li>
@@ -369,7 +380,7 @@ let sb=null, ME=null, cur=null, curType='song', mItem=null, pendingFiles=[], rtT
 let DB={config:{shared_pw:'',names:[],checklist:[]}, services:[], items:[], lib:[]};
 const MAXFILE=10*1024*1024; // 10MB
 
-const TYPE={song:['🎵 찬양','b-song'],bible:['📖 성경','b-bible'],sermon:['✝️ 설교','b-sermon'],ad:['📢 광고','b-ad']};
+const TYPE={sermon:['✝️ 설교자막','b-sermon'],song:['🎵 찬양 콘티','b-song'],choir:['🎼 성가대 자막','b-choir'],bible:['📖 성경','b-bible'],ad:['📢 기타/광고','b-ad'],audio:['🎧 음원·링크','b-audio']};
 function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function fmtShort(iso){ if(!iso) return ''; const d=new Date(iso); return (d.getMonth()+1)+'/'+d.getDate(); }
 function curLabel(){ const s=DB.services.find(x=>x.id===cur); return s?s.label:''; }
@@ -449,7 +460,7 @@ function fillServiceSel(){
  if(cur) s.value=cur;
 }
 function switchService(){ cur=document.getElementById('svcSel').value; refresh(); }
-const SVC_PRESETS=["주일 오전예배","주일 오후예배","수요예배","금요기도회","새벽기도회","특별새벽기도"];
+const SVC_PRESETS=["주일 1부","주일 2부","주일 3부","주일 4부","주일오후","수요기도회","금요기도회","특별집회 & 기타","청년예배"];
 function renderPresets(){
  document.getElementById('svcPresets').innerHTML=SVC_PRESETS.map(p=>`<button type="button" onclick="pickPreset(this,'${p}')">${p}</button>`).join('');
 }
@@ -490,11 +501,12 @@ function pickType(t,btn){
  btn.classList.add('on');
  document.getElementById('bibleBox').style.display=t==='bible'?'block':'none';
  document.getElementById('sermonBox').style.display=t==='sermon'?'block':'none';
+ document.getElementById('audioBox').style.display=t==='audio'?'block':'none';
  const lbl=document.getElementById('bodyLabel'), body=document.getElementById('bodyBox'), songLib=document.getElementById('songFromLib');
- body.style.display = t==='bible' ? 'none':'block';
+ body.style.display = (t==='bible'||t==='audio') ? 'none':'block';
  songLib.style.display = t==='song' ? 'block':'none';
- lbl.textContent = t==='song'?'가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'
-   : t==='ad'?'광고 내용을 적으세요' : t==='sermon'?'설교 본문/핵심 구절 (선택)':'내용을 적으세요';
+ lbl.textContent = (t==='song'||t==='choir')?'가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'
+   : t==='ad'?'내용을 적으세요 (광고·기타)' : t==='sermon'?'설교 본문/핵심 구절 (선택)':'내용을 적으세요';
 }
 function addDaeji(){
  const d=document.createElement('div'); d.className='daeji';
@@ -559,6 +571,10 @@ async function submitItem(){
   const daeji=[...document.querySelectorAll('#daejiList input')].map(i=>i.value.trim()).filter(Boolean);
   const extra=document.getElementById('f_body').value.trim();
   body=daeji.length||extra ? [title,...daeji].join('\n\n')+(extra?'\n\n'+extra:'') : '';
+ } else if(curType==='audio'){
+  const link=document.getElementById('f_link').value.trim();
+  if(!link && !pendingFiles.length){ alert('음원 파일을 첨부하거나 링크 주소를 입력하세요'); return; }
+  body=link;
  } else {
   body=document.getElementById('f_body').value.trim();
  }
@@ -574,6 +590,7 @@ async function submitItem(){
   document.getElementById('f_title').value='';document.getElementById('f_body').value='';
   document.getElementById('f_note').value='';
   document.getElementById('f_ref').value='';
+  document.getElementById('f_link').value='';
   document.getElementById('daejiList').innerHTML='<div class="daeji"><input placeholder="1. 첫째 대지"></div>';
   document.getElementById('f_order').value=order+1;
   clearFile();
@@ -627,11 +644,19 @@ function openModal(id){
  mItem=DB.items.find(i=>i.id===id); if(!mItem) return;
  document.getElementById('mTitle').textContent=TYPE[mItem.type][0]+' — '+mItem.title;
  document.getElementById('mNote').innerHTML = mItem.note ? `<div class="mnote">📝 <b>설명(콘티 순서)</b>: ${esc(mItem.note)}</div>` : '';
- const sl=slidesOf(mItem.body);
- document.getElementById('mSlides').innerHTML= sl.length
-   ? sl.map(s=>`<div class="slide">${esc(s).replace(/\n/g,'<br>')}</div>`).join('')
-   : '<div class="empty" style="padding:18px">직접 입력 내용 없음 — 첨부 파일을 참고하세요</div>';
- document.getElementById('mTxt').textContent= sl.length? sl.join('\n\n') : '(직접 입력 내용 없음 · 첨부 파일 참고)';
+ if(mItem.type==='audio'){
+  const link=(mItem.body||'').trim();
+  document.getElementById('mSlides').innerHTML= link
+    ? `<div class="slide">🎧 음원 링크<br><a href="${esc(link)}" target="_blank" rel="noopener" style="word-break:break-all">${esc(link)}</a></div>`
+    : '<div class="empty" style="padding:18px">링크 없음 — 첨부된 음원 파일을 확인하세요</div>';
+  document.getElementById('mTxt').textContent= link||'(링크 없음 · 첨부 음원 참고)';
+ } else {
+  const sl=slidesOf(mItem.body);
+  document.getElementById('mSlides').innerHTML= sl.length
+    ? sl.map(s=>`<div class="slide">${esc(s).replace(/\n/g,'<br>')}</div>`).join('')
+    : '<div class="empty" style="padding:18px">직접 입력 내용 없음 — 첨부 파일을 참고하세요</div>';
+  document.getElementById('mTxt').textContent= sl.length? sl.join('\n\n') : '(직접 입력 내용 없음 · 첨부 파일 참고)';
+ }
  const mf=document.getElementById('mFile');
  const files=mItem.files||[];
  if(files.length){
@@ -640,9 +665,11 @@ function openModal(id){
     const t=(f.type||'')+(f.name||'').toLowerCase();
     const isImg=t.includes('image')||/\.(jpg|jpeg|png|gif|webp)/.test(t);
     const isPdf=t.includes('pdf');
+    const isAudio=t.includes('audio')||/\.(mp3|m4a|wav|aac|ogg)/.test(t);
     let prev;
     if(isImg) prev=`<img src="${f.url}">`;
     else if(isPdf) prev=`<embed src="${f.url}" type="application/pdf" style="width:100%;height:420px;border:1px solid var(--line);border-radius:8px">`;
+    else if(isAudio) prev=`<audio controls src="${f.url}" style="width:100%"></audio>`;
     else prev='<p style="color:#64748b;font-size:13px">미리보기를 지원하지 않는 형식입니다.</p>';
     return `<div style="margin-bottom:14px"><div style="font-size:12px;color:#64748b;margin-bottom:6px">${esc(f.name)}</div>${prev}
       <a href="${f.url}" target="_blank" rel="noopener"><button class="btn ghost sm" style="margin-top:6px">⬇️ 열기 / 내려받기</button></a></div>`;
