@@ -417,9 +417,17 @@
       </div>
       <label id="e_bodyLabel">내용</label>
       <textarea id="e_body"></textarea>
+
+      <label>📎 첨부 파일 (선택)</label>
+      <div id="e_existing"></div>
+      <div class="drop" id="e_dropZone" onclick="document.getElementById('e_fileInput').click()" style="margin-top:8px">
+        ＋ 파일 추가 (이미지·PDF·음원·문서, 10MB 이하)
+        <div id="e_filePreview"></div>
+      </div>
+      <input type="file" id="e_fileInput" multiple style="display:none" accept="image/*,audio/*,.pdf,.mp3,.m4a,.wav,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleEditFiles(this.files)">
+
       <label>설명 (메모)</label>
       <textarea id="e_note" style="min-height:60px"></textarea>
-      <p class="hint" id="e_fileHint" style="display:none"></p>
       <div class="wnav">
         <button class="btn ghost" onclick="closeEdit()">취소</button>
         <button class="btn" id="editSaveBtn" onclick="saveEdit()" style="flex:1">💾 저장</button>
@@ -723,16 +731,20 @@ function renderFilePreview(){
 }
 function removeFile(i){ pendingFiles.splice(i,1); renderFilePreview(); }
 function clearFile(){ pendingFiles=[]; const fi=document.getElementById('fileInput'); if(fi) fi.value=''; renderFilePreview(); }
-function setupDrop(){
- const z=document.getElementById('dropZone');
+function wireDrop(z,handler){
+ if(!z) return;
  ['dragenter','dragover'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.add('over');}));
  ['dragleave','drop'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.remove('over');}));
- z.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files));
+ z.addEventListener('drop',ev=>handler(ev.dataTransfer.files));
 }
-async function uploadFiles(itemId){
+function setupDrop(){
+ wireDrop(document.getElementById('dropZone'),handleFiles);
+ wireDrop(document.getElementById('e_dropZone'),handleEditFiles);
+}
+async function uploadFileList(list,itemId){
  const out=[];
- for(let i=0;i<pendingFiles.length;i++){
-  const f=pendingFiles[i];
+ for(let i=0;i<list.length;i++){
+  const f=list[i];
   const safe=f.name.replace(/[^\w.\-가-힣]/g,'_');
   const path=`${cur}/${itemId}/${Date.now()}_${i}_${safe}`;
   const {error}=await sb.storage.from('conti').upload(path,f.file,{cacheControl:'3600',upsert:false});
@@ -742,6 +754,7 @@ async function uploadFiles(itemId){
  }
  return out;
 }
+async function uploadFiles(itemId){ return uploadFileList(pendingFiles,itemId); }
 
 /* ---------- submit ---------- */
 async function submitItem(){
@@ -878,7 +891,7 @@ function openModal(id){
 function closeModal(){ document.getElementById('modal').classList.remove('on'); }
 
 /* ---------- edit ---------- */
-let editId=null;
+let editId=null, editFiles=[], editNew=[];
 function openEdit(){
  if(!mItem) return;
  editId=mItem.id;
@@ -894,13 +907,49 @@ function openEdit(){
  else if(t==='conti') lbl.textContent='찬양 콘티 설명';
  else if(t==='caption') lbl.textContent='자막 내용 (빈 줄 = 슬라이드 분할)';
  else lbl.textContent='내용';
- const fh=document.getElementById('e_fileHint');
- if(mItem.files&&mItem.files.length){ fh.style.display='block'; fh.textContent='📎 첨부 파일 '+mItem.files.length+'개는 그대로 유지됩니다. 파일 자체를 바꾸려면 이 자료를 삭제하고 다시 올려주세요.'; }
- else fh.style.display='none';
+ editFiles=(mItem.files||[]).slice();
+ editNew=[];
+ renderEditExisting();
+ renderEditNew();
  closeModal();
  document.getElementById('editModal').classList.add('on');
 }
-function closeEdit(){ document.getElementById('editModal').classList.remove('on'); editId=null; }
+function closeEdit(){ document.getElementById('editModal').classList.remove('on'); editId=null; editFiles=[]; editNew=[]; }
+
+/* 기존 첨부 파일 목록 (빼기 가능) */
+function renderEditExisting(){
+ const el=document.getElementById('e_existing');
+ if(!editFiles.length){ el.innerHTML='<div style="font-size:12px;color:#94a3b8;margin-top:4px">기존 첨부 파일 없음</div>'; return; }
+ el.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">'+
+  editFiles.map((f,idx)=>{
+   const isImg=(f.type||'').includes('image')||/\.(jpg|jpeg|png|gif|webp)/.test((f.name||'').toLowerCase());
+   return `<div class="filechip">${isImg?`<img src="${f.url}">`:'📄'} <span>${esc(f.name)}</span>
+     <button class="rm" onclick="removeExistingFile(${idx})" title="이 파일 빼기">✕</button></div>`;
+  }).join('')+'</div>';
+}
+function removeExistingFile(idx){ editFiles.splice(idx,1); renderEditExisting(); }
+/* 새로 추가한 파일 미리보기 */
+function handleEditFiles(files){
+ [...(files||[])].forEach(f=>{
+  if(f.size>MAXFILE){ alert(`"${f.name}" 은(는) 10MB를 넘어 건너뜁니다. (큰 음원은 링크를 이용하세요)`); return; }
+  const r=new FileReader();
+  r.onload=()=>{ editNew.push({name:f.name,type:f.type,size:f.size,dataUrl:r.result,file:f}); renderEditNew(); };
+  r.readAsDataURL(f);
+ });
+ document.getElementById('e_fileInput').value='';
+}
+function renderEditNew(){
+ const el=document.getElementById('e_filePreview');
+ if(!editNew.length){ el.innerHTML=''; return; }
+ el.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px">'+
+  editNew.map((f,idx)=>{
+   const isImg=(f.type||'').startsWith('image/');
+   return `<div class="filechip">${isImg?`<img src="${f.dataUrl}">`:'📄'} <span>${esc(f.name)}</span>
+     <button class="rm" onclick="event.stopPropagation();removeEditNew(${idx})">✕</button></div>`;
+  }).join('')+'</div>';
+}
+function removeEditNew(idx){ editNew.splice(idx,1); renderEditNew(); }
+
 async function saveEdit(){
  if(!editId) return;
  const it=DB.items.find(i=>i.id===editId);
@@ -908,12 +957,24 @@ async function saveEdit(){
  let title=document.getElementById('e_title').value.trim();
  const body=document.getElementById('e_body').value.trim();
  const note=document.getElementById('e_note').value.trim();
+ if(!body && !(editFiles.length+editNew.length)){ alert('내용을 입력하거나 파일을 첨부하세요'); return; }
  if(!title){ const first=(body.split('\n').find(x=>x.trim())||'').trim(); title=first?first.slice(0,30):ty(it?it.type:'')[0]; }
  const btn=document.getElementById('editSaveBtn'); btn.disabled=true; btn.textContent='저장 중…';
- const {error}=await sb.from('items').update({title,ord:order,body,note}).eq('id',editId);
- btn.disabled=false; btn.textContent='💾 저장';
- if(error){ alert('수정 실패: '+error.message); return; }
- closeEdit(); await refresh(); toast('수정되었습니다 ✓');
+ try{
+  /* 뺀 파일은 저장소에서 삭제 */
+  const orig=(it&&it.files)||[];
+  const keep=new Set(editFiles.map(f=>f.path).filter(Boolean));
+  const removed=orig.filter(f=>f.path&&!keep.has(f.path)).map(f=>f.path);
+  if(removed.length) await sb.storage.from('conti').remove(removed);
+  /* 새 파일 업로드 후 합치기 */
+  let uploaded=[];
+  if(editNew.length) uploaded=await uploadFileList(editNew,editId);
+  const finalFiles=editFiles.concat(uploaded);
+  const {error}=await sb.from('items').update({title,ord:order,body,note,files:finalFiles}).eq('id',editId);
+  if(error) throw error;
+  closeEdit(); await refresh(); toast('수정되었습니다 ✓');
+ }catch(e){ alert('수정 실패: '+(e.message||e)); }
+ finally{ btn.disabled=false; btn.textContent='💾 저장'; }
 }
 
 function openHelp(){ document.getElementById('helpModal').classList.add('on'); }
