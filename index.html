@@ -38,7 +38,6 @@
   header.bar{background:var(--bg);color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
   header.bar .t{font-size:16px;font-weight:700}
   header.bar .who{color:#94a3b8;font-size:13px}
-  header.bar select{width:auto;background:#1e293b;color:#fff;border-color:#334155;font-size:13px;padding:7px 10px}
   nav.tabs{display:flex;gap:6px;background:#fff;padding:10px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;flex-wrap:wrap}
   nav.tabs button{border:1px solid var(--line);background:#fff;padding:9px 15px;border-radius:999px;font-size:14px;color:#334155}
   nav.tabs button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
@@ -48,16 +47,37 @@
   h2.sec{font-size:16px;margin:0 0 4px}
   .sub{color:var(--muted);font-size:13px;margin:0 0 14px}
 
-  .types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .types button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:13px 4px;font-size:14px;color:#475569}
-  .types button.on{border-color:var(--brand);background:#eff6ff;color:var(--brand-d);font-weight:700}
+  /* role choice */
+  .rolewrap{max-width:560px;margin:38px auto;padding:0 16px}
+  .rolehead{text-align:center;font-size:21px;margin:0 0 22px;color:#0f172a}
+  .rolecards{display:grid;gap:16px}
+  .rolecard{display:block;width:100%;text-align:center;background:#fff;border:2px solid var(--line);border-radius:18px;padding:30px 20px;box-shadow:0 4px 14px rgba(2,6,23,.05);transition:.15s}
+  .rolecard .ic{font-size:44px}
+  .rolecard .rc-t{font-size:20px;font-weight:800;margin:8px 0 6px;color:#0f172a}
+  .rolecard .rc-s{font-size:13px;color:var(--muted);line-height:1.6}
+  .rolecard.up:hover{border-color:var(--brand);background:#eff6ff}
+  .rolecard.staff:hover{border-color:var(--ok);background:#ecfdf5}
+
+  /* wizard */
+  .steps{display:flex;margin:4px auto 20px;max-width:520px}
+  .stepdot{flex:1;text-align:center;position:relative;color:#94a3b8;font-size:12px;font-weight:600}
+  .stepdot b{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:50%;background:#e2e8f0;color:#64748b;font-size:14px;margin-bottom:5px}
+  .stepdot.on b{background:var(--brand);color:#fff}
+  .stepdot.cur b{box-shadow:0 0 0 4px #dbeafe}
+  .stepdot:not(:last-child):after{content:'';position:absolute;top:14px;left:62%;width:76%;height:2px;background:#e2e8f0}
+  .bigdate{font-size:18px;padding:15px;text-align:center}
+  .bigchips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+  .bigchip{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:18px 8px;font-size:15px;font-weight:700;color:#334155;transition:.12s}
+  .bigchip:hover{border-color:var(--brand);background:#eff6ff;color:var(--brand-d)}
+  .bigtypes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+  .bigtype{display:flex;flex-direction:column;align-items:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:22px 10px;font-size:15px;font-weight:700;color:#334155;transition:.12s}
+  .bigtype .ic{font-size:30px}
+  .bigtype:hover{border-color:var(--brand);background:#eff6ff;color:var(--brand-d)}
+  .wnav{display:flex;gap:10px;margin-top:18px;align-items:center}
+  .staffbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0;font-size:13px;color:var(--muted)}
+  .staffbar select{width:auto;min-width:200px}
+
   .row{display:grid;grid-template-columns:120px 1fr;gap:12px}
-  .chk{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
-  .chk label{display:flex;align-items:center;gap:6px;margin:0;font-weight:500;color:#334155}
-  .chk input{width:auto}
-  .autofill{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;padding:11px 13px;font-size:13px;color:#065f46;margin-top:8px;white-space:pre-wrap;line-height:1.6;display:none}
-  .daeji-list .daeji{display:flex;gap:8px;margin-top:8px}
-  .daeji-list .daeji input{flex:1}
 
   table{width:100%;border-collapse:collapse}
   th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
@@ -83,10 +103,11 @@
   .mbody{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
   .slides h4,.txtprev h4{margin:0 0 10px;font-size:13px;color:var(--muted)}
   .slide{background:#0f172a;color:#fff;border-radius:10px;padding:18px;text-align:center;margin-bottom:10px;font-size:15px;line-height:1.6;min-height:64px;display:flex;align-items:center;justify-content:center}
+  .slide a{color:#93c5fd}
   pre{background:#0b1220;color:#cbd5e1;border-radius:10px;padding:14px;font-size:12px;line-height:1.6;overflow:auto;white-space:pre-wrap;margin:0;font-family:Consolas,monospace}
   .pp{font-size:12px;color:#94a3b8;margin-top:8px}
 
-  .libitem{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+  .libitem{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;gap:10px}
   .libitem .ttl{font-weight:600;font-size:14px}
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;opacity:0;transition:.3s;z-index:90;pointer-events:none}
   .toast.on{opacity:1}
@@ -110,7 +131,7 @@
   .help .k{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;padding:1px 6px;font-size:13px;font-weight:700;color:#334155}
   .help .badge2{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}
   .help .tip2{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:10px;padding:10px 13px;font-size:13px;margin-top:8px}
-  @media(max-width:640px){.mbody{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hide-sm{display:none}.types{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.mbody{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hide-sm{display:none}.bigchips{grid-template-columns:repeat(2,1fr)}}
 
   /* print */
   #print{display:none}
@@ -118,8 +139,8 @@
     body *{visibility:hidden}
     #print,#print *{visibility:visible}
     #print{display:block;position:absolute;left:0;top:0;width:100%;padding:20px}
-    .pitem{page-break-inside:avoid;border:1px solid #ccc;border-radius:8px;padding:14px;margin-bottom:12px}
-    .pitem h3{margin:0 0 8px}
+    #print .pitem{page-break-inside:avoid;margin-bottom:18px;border-bottom:1px solid #ccc;padding-bottom:12px}
+    #print h3{margin:0 0 6px;font-size:15px}
   }
 </style>
 </head>
@@ -147,144 +168,195 @@
   <header class="bar">
     <div>
       <div class="t">📺 자막 자료 시스템</div>
-      <div class="who"><span id="whoName"></span> 님 · 예배 <select id="svcSel" onchange="switchService()"></select></div>
+      <div class="who"><span id="whoName"></span> 님<span id="roleTag"></span></div>
     </div>
     <div style="display:flex;gap:8px">
+      <button class="btn ghost sm" id="homeBtn" onclick="goHome()" style="display:none">🏠 처음으로</button>
       <button class="btn ghost sm" onclick="openHelp()" title="사용 방법">❓ 사용방법</button>
-      <button class="btn ghost sm" onclick="refresh()" title="새로고침">🔄</button>
-      <button class="btn ghost sm" onclick="newServicePrompt()">＋ 새 예배</button>
       <button class="btn ghost sm" onclick="logout()">나가기</button>
     </div>
   </header>
 
-  <nav class="tabs">
-    <button class="on" data-tab="upload" onclick="tab('upload',this)">📥 자료 올리기</button>
-    <button data-tab="board" onclick="tab('board',this)">✅ 검수 보드</button>
-    <button data-tab="lib" onclick="tab('lib',this)">🎵 찬양 저장고</button>
-    <button data-tab="settings" onclick="tab('settings',this)">⚙️ 설정</button>
-  </nav>
+  <!-- ROLE CHOICE -->
+  <div id="roleScreen">
+    <div class="rolewrap">
+      <h2 class="rolehead">무엇을 하시겠어요?</h2>
+      <div class="rolecards">
+        <button class="rolecard up" onclick="enterUpload()">
+          <div class="ic">📥</div>
+          <div class="rc-t">자료 올리기</div>
+          <div class="rc-s">성경구절·자막·찬양·음원을<br>날짜와 예배별로 올립니다</div>
+        </button>
+        <button class="rolecard staff" onclick="enterStaff()">
+          <div class="ic">✅</div>
+          <div class="rc-t">자막 담당자</div>
+          <div class="rc-s">올라온 자료를 검수하고<br>ProPresenter로 내보냅니다</div>
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <div class="wrap">
+  <!-- WIZARD : 자료 올리기 -->
+  <div id="wizard" style="display:none">
+    <div class="wrap">
+      <div class="steps" id="stepBar">
+        <div class="stepdot"><b>1</b><span>날짜</span></div>
+        <div class="stepdot"><b>2</b><span>예배</span></div>
+        <div class="stepdot"><b>3</b><span>항목</span></div>
+        <div class="stepdot"><b>4</b><span>입력</span></div>
+      </div>
 
-    <!-- UPLOAD -->
-    <div id="upload" class="view on">
-      <div class="panel">
-        <h2 class="sec">자료 올리기</h2>
-        <p class="sub">종류를 고르고 내용을 입력한 뒤 등록하세요.</p>
-        <div class="types" id="typeBtns">
-          <button data-type="sermon" onclick="pickType('sermon',this)">✝️ 설교자막</button>
-          <button class="on" data-type="song" onclick="pickType('song',this)">🎵 찬양 콘티</button>
-          <button data-type="choir" onclick="pickType('choir',this)">🎼 성가대 자막</button>
-          <button data-type="bible" onclick="pickType('bible',this)">📖 성경</button>
-          <button data-type="ad" onclick="pickType('ad',this)">📢 기타/광고</button>
-          <button data-type="audio" onclick="pickType('audio',this)">🎧 음원·링크</button>
+      <!-- STEP 1 : date -->
+      <div class="wstep" id="wstep1">
+        <div class="panel">
+          <h2 class="sec">① 입력할 날짜를 선택해주세요</h2>
+          <p class="sub">이 자막을 <b>사용할 예배 날짜</b>입니다.</p>
+          <input type="date" id="w_date" class="bigdate">
+          <button class="btn full" onclick="step1Next()">다음 → 예배 선택</button>
         </div>
+      </div>
 
-        <div class="row" style="margin-top:14px">
-          <div><label>예배 순서</label><input id="f_order" type="number" min="1" value="1"></div>
-          <div><label>제목</label><input id="f_title" placeholder="예: 주 은혜임을"></div>
+      <!-- STEP 2 : service -->
+      <div class="wstep" id="wstep2" style="display:none">
+        <div class="panel">
+          <h2 class="sec">② 예배를 선택해주세요</h2>
+          <p class="sub" id="w_dateLabel"></p>
+          <div class="bigchips" id="w_svcBtns"></div>
+          <div class="wnav"><button class="btn ghost" onclick="wToStep(1)">← 날짜 다시</button></div>
         </div>
+      </div>
 
-        <!-- bible-only -->
-        <div id="bibleBox" style="display:none">
-          <label>성경 구절 (장·절만 입력)</label>
-          <input id="f_ref" placeholder="예: 시편 23:1-4">
-          <p class="hint">ProPresenter에 내장된 개역개정에서 이 구절을 불러오면 됩니다. 본문 전체를 입력할 필요 없습니다.</p>
+      <!-- STEP 3 : item type -->
+      <div class="wstep" id="wstep3" style="display:none">
+        <div class="panel">
+          <h2 class="sec">③ 입력할 항목을 선택해주세요</h2>
+          <p class="sub" id="w_svcLabel"></p>
+          <div class="bigtypes" id="w_typeBtns"></div>
+          <div class="wnav"><button class="btn ghost" onclick="wToStep(2)">← 예배 다시</button></div>
         </div>
+        <div class="panel">
+          <h2 class="sec">이 예배에 올라온 자료</h2>
+          <p class="sub" id="w_upCount"></p>
+          <div id="w_upList"></div>
+        </div>
+      </div>
 
-        <!-- sermon-only -->
-        <div id="sermonBox" style="display:none">
-          <label>대지 (소제목) — 슬라이드 한 장씩</label>
-          <div class="daeji-list" id="daejiList">
-            <div class="daeji"><input placeholder="1. 첫째 대지"></div>
+      <!-- STEP 4 : input form -->
+      <div class="wstep" id="wstep4" style="display:none">
+        <div class="panel">
+          <h2 class="sec" id="w_formHead">④ 입력</h2>
+          <p class="sub" id="w_formSvc"></p>
+
+          <div class="row" style="margin-top:6px">
+            <div><label>예배 순서</label><input id="f_order" type="number" min="1" value="1"></div>
+            <div><label>제목 <span style="font-weight:400;color:#94a3b8">· 비우면 자동</span></label><input id="f_title" placeholder="제목 (선택)"></div>
           </div>
-          <button class="btn ghost sm" style="margin-top:8px" onclick="addDaeji()">＋ 대지 추가</button>
-        </div>
 
-        <!-- audio-only -->
-        <div id="audioBox" style="display:none">
-          <label>음원 링크 주소 (선택) — 유튜브·드라이브·웹하드 등</label>
-          <input id="f_link" placeholder="예: https://youtu.be/... 또는 드라이브 공유 링크">
-          <p class="hint">음원 파일은 아래 <b>파일 첨부</b>에 올리고(10MB 이하), 파일이 크거나 링크로 줄 때는 여기에 주소를 붙여넣으세요.</p>
-        </div>
+          <!-- bible -->
+          <div id="f_bibleBox" style="display:none">
+            <label>성경 구절 (장·절만 입력)</label>
+            <input id="f_ref" placeholder="예: 시편 23:1-4">
+            <p class="hint">ProPresenter 내장 개역개정에서 이 구절을 불러옵니다. 본문 전체 입력 불필요.</p>
+          </div>
 
-        <!-- generic body -->
-        <div id="bodyBox">
-          <label id="bodyLabel">가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)</label>
-          <textarea id="f_body" placeholder="가사를 붙여넣으세요"></textarea>
-          <div style="margin-top:8px" id="songFromLib">
-            <button class="btn ghost sm" onclick="tab('lib',document.querySelector('[data-tab=lib]'))">🎵 저장고에서 불러오기</button>
-            <button class="btn ghost sm" onclick="saveToLib()">＋ 이 곡 저장고에 저장</button>
+          <!-- caption / conti / lyrics -->
+          <div id="f_textBox" style="display:none">
+            <label id="f_textLabel">내용</label>
+            <textarea id="f_text" placeholder=""></textarea>
+            <div id="f_libBtns" style="margin-top:8px;display:none">
+              <button class="btn ghost sm" onclick="openLibPick()">🎵 저장고에서 불러오기</button>
+              <button class="btn ghost sm" onclick="saveToLib()">＋ 이 곡 저장고에 저장</button>
+            </div>
+          </div>
+
+          <!-- media -->
+          <div id="f_mediaBox" style="display:none">
+            <label>음원 링크 주소 (선택) — 유튜브·드라이브·웹하드 등</label>
+            <input id="f_link" placeholder="예: https://youtu.be/... 또는 드라이브 공유 링크">
+            <p class="hint">음원 파일은 아래 <b>파일 첨부</b>에 올리고(10MB 이하), 파일이 크면 링크 주소를 붙여넣으세요.</p>
+          </div>
+
+          <!-- attach (all) -->
+          <div id="f_attachBox">
+            <label>파일 첨부 (선택) — 이미지·PDF·음원·문서 <span style="font-weight:400;color:#94a3b8">· 직접 입력 대신, 또는 함께</span></label>
+            <div class="drop" id="dropZone" onclick="document.getElementById('fileInput').click()">
+              📎 여기로 파일을 끌어다 놓거나, 클릭해서 선택하세요 (여러 개 가능)
+              <div id="filePreview"></div>
+            </div>
+            <input type="file" id="fileInput" multiple style="display:none" accept="image/*,audio/*,.pdf,.mp3,.m4a,.wav,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleFiles(this.files)">
+          </div>
+
+          <div>
+            <label>설명 (메모) <span style="font-weight:400;color:#94a3b8">· 자막 담당자에게 전달 (선택)</span></label>
+            <textarea id="f_note" style="min-height:60px" placeholder="예: 1절 → 후렴 → 2절 / 콘티 3번부터 / 자막 크게"></textarea>
+          </div>
+
+          <div class="wnav">
+            <button class="btn ghost" onclick="wToStep(3)">← 항목</button>
+            <button class="btn" id="submitBtn" onclick="submitItem()" style="flex:1">＋ 등록하기</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div id="attachBox">
-          <label>파일 첨부 (선택) — 콘티·가사·이미지·PDF·문서 <span style="font-weight:400;color:#94a3b8">· 직접 입력 대신, 또는 함께</span></label>
-          <div class="drop" id="dropZone" onclick="document.getElementById('fileInput').click()">
-            📎 여기로 파일을 끌어다 놓거나, 클릭해서 선택하세요 (여러 장 가능)
-            <div id="filePreview"></div>
+  <!-- STAFF : 자막 담당자 -->
+  <div id="staff" style="display:none">
+    <nav class="tabs">
+      <button class="on" data-tab="board" onclick="tab('board',this)">✅ 검수 보드</button>
+      <button data-tab="lib" onclick="tab('lib',this)">🎵 찬양 저장고</button>
+      <button data-tab="settings" onclick="tab('settings',this)">⚙️ 설정</button>
+    </nav>
+    <div class="wrap">
+      <div class="staffbar">
+        예배 선택 <select id="svcSel" onchange="switchService()"></select>
+        <button class="btn ghost sm" onclick="refresh()">🔄 새로고침</button>
+        <button class="btn ghost sm" onclick="newServicePrompt()">＋ 새 예배</button>
+      </div>
+
+      <!-- BOARD -->
+      <div id="board" class="view on">
+        <div class="panel">
+          <h2 class="sec">검수 보드</h2>
+          <p class="sub">예배 순서대로 정렬됩니다. 미리보기로 확인 후 <b>검수완료</b>를 누르세요. (다른 사람이 올리면 자동 갱신)</p>
+          <div id="missBox"></div>
+          <div id="boardTable"></div>
+          <div class="toolbar">
+            <button class="btn" onclick="exportAll()">⬇️ ProPresenter용 전체 내보내기(.txt)</button>
+            <button class="btn ghost" onclick="copyFromLastPrompt()">📋 지난 예배 자료 가져오기</button>
+            <button class="btn ghost" onclick="printWeek()">🖨️ 인쇄</button>
+            <small>검수완료 항목이 예배 순서대로 묶여 내보내집니다.</small>
           </div>
-          <input type="file" id="fileInput" multiple style="display:none" accept="image/*,audio/*,.pdf,.mp3,.m4a,.wav,.hwp,.hwpx,.doc,.docx,.txt" onchange="handleFiles(this.files)">
         </div>
-
-        <div>
-          <label>설명 (콘티 순서·메모) <span style="font-weight:400;color:#94a3b8">· 자막 담당자에게 전달 (선택)</span></label>
-          <textarea id="f_note" style="min-height:60px" placeholder="예: 1절 → 후렴 → 2절 → 후렴 / 콘티 3번부터 / 자막 크게"></textarea>
-        </div>
-
-        <button class="btn full" id="submitBtn" onclick="submitItem()">＋ 등록하기</button>
       </div>
 
-      <div class="panel">
-        <h2 class="sec">이번 예배에 올라온 자료</h2>
-        <p class="sub" id="upCount"></p>
-        <div id="upList"></div>
+      <!-- LIBRARY -->
+      <div id="lib" class="view">
+        <div class="panel">
+          <h2 class="sec">🎵 찬양 가사 저장고</h2>
+          <p class="sub">자주 쓰는 찬양을 저장해 두면, 자료 올릴 때 '찬양 가사' 항목에서 불러올 수 있습니다. (모든 기기 공유)</p>
+          <div id="libList"></div>
+          <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+          <label>제목</label><input id="lib_title" placeholder="찬양 제목">
+          <label>가사 (빈 줄 = 슬라이드)</label><textarea id="lib_body"></textarea>
+          <button class="btn full" onclick="addLib()">＋ 저장고에 추가</button>
+        </div>
       </div>
-    </div>
 
-    <!-- BOARD -->
-    <div id="board" class="view">
-      <div class="panel">
-        <h2 class="sec">검수 보드</h2>
-        <p class="sub">예배 순서대로 정렬됩니다. 미리보기로 확인 후 <b>검수완료</b>를 누르세요. (다른 사람이 올리면 자동 갱신)</p>
-        <div id="missBox"></div>
-        <div id="boardTable"></div>
-        <div class="toolbar">
-          <button class="btn" onclick="exportAll()">⬇️ ProPresenter용 전체 내보내기(.txt)</button>
-          <button class="btn ghost" onclick="copyFromLastPrompt()">📋 지난 예배 자료 가져오기</button>
-          <button class="btn ghost" onclick="printWeek()">🖨️ 인쇄</button>
-          <small>검수완료 항목이 예배 순서대로 묶여 내보내집니다.</small>
+      <!-- SETTINGS -->
+      <div id="settings" class="view">
+        <div class="panel">
+          <h2 class="sec">⚙️ 설정</h2>
+          <label>공용 비밀번호</label><input id="set_pw">
+          <label>올리는 사람 이름 (쉼표로 구분, 10명 이하)</label>
+          <input id="set_names">
+          <label>예배별 기대 자료 체크리스트 (쉼표로 구분 — 누락 알림에 사용)</label>
+          <input id="set_check" placeholder="예: 성경, 자막, 찬양, 음원">
+          <button class="btn full" onclick="saveSettings()">설정 저장</button>
+          <p class="hint" style="margin-top:14px">✅ 이 설정은 모든 기기에 공통 적용됩니다. 비밀번호를 바꾸면 다음 로그인부터 새 비번이 필요합니다.</p>
         </div>
       </div>
     </div>
-
-    <!-- LIBRARY -->
-    <div id="lib" class="view">
-      <div class="panel">
-        <h2 class="sec">🎵 찬양 가사 저장고</h2>
-        <p class="sub">자주 쓰는 찬양을 저장해 두고 한 번에 불러옵니다. (모든 기기 공유)</p>
-        <div id="libList"></div>
-        <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-        <label>제목</label><input id="lib_title" placeholder="찬양 제목">
-        <label>가사 (빈 줄 = 슬라이드)</label><textarea id="lib_body"></textarea>
-        <button class="btn full" onclick="addLib()">＋ 저장고에 추가</button>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
-    <div id="settings" class="view">
-      <div class="panel">
-        <h2 class="sec">⚙️ 설정</h2>
-        <label>공용 비밀번호</label><input id="set_pw">
-        <label>올리는 사람 이름 (쉼표로 구분, 10명 이하)</label>
-        <input id="set_names">
-        <label>예배별 기대 자료 체크리스트 (쉼표로 구분 — 누락 알림에 사용)</label>
-        <input id="set_check" placeholder="예: 광고, 경배찬양, 본문봉독, 설교, 결단찬양">
-        <button class="btn full" onclick="saveSettings()">설정 저장</button>
-        <p class="hint" style="margin-top:14px">✅ 이 설정은 모든 기기에 공통 적용됩니다. 비밀번호를 바꾸면 다음 로그인부터 새 비번이 필요합니다.</p>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -309,19 +381,27 @@
   </div>
 </div>
 
-<!-- new service modal -->
+<!-- new service modal (담당자용) -->
 <div class="modal" id="svcModal">
   <div class="mbox" style="max-width:430px">
     <header><h3>＋ 예배 / 사용일 추가</h3><button class="x" onclick="closeSvcModal()">✕</button></header>
     <div style="padding:20px">
       <label>📅 사용 날짜 (이 자막을 쓸 날 — 달력에서 클릭)</label>
       <input type="date" id="svc_date">
-      <label>📝 설명 (예배 종류 — 버튼으로 선택, 또는 직접 입력)</label>
+      <label>📝 예배 종류 — 버튼으로 선택, 또는 직접 입력</label>
       <div class="chips" id="svcPresets"></div>
       <input id="svc_desc" placeholder="직접 입력도 가능" oninput="clearPreset()">
       <button class="btn full" onclick="createService()">＋ 만들기</button>
       <p class="hint" style="margin-top:10px">자료를 올린 시각(입력 날짜)은 자동으로 기록됩니다.</p>
     </div>
+  </div>
+</div>
+
+<!-- library pick modal (가사 불러오기) -->
+<div class="modal" id="libModal">
+  <div class="mbox" style="max-width:480px">
+    <header><h3>🎵 저장고에서 불러오기</h3><button class="x" onclick="closeLibPick()">✕</button></header>
+    <div style="padding:18px" id="libPickList"></div>
   </div>
 </div>
 
@@ -333,32 +413,33 @@
       <h4>🔑 처음 들어가기 (공통)</h4>
       <ol>
         <li><b>주소 접속</b> 후 <b>공용 비밀번호</b> + <b>본인 이름</b>을 입력해 들어갑니다.</li>
-        <li>화면 위에서 <b>예배(날짜)</b>를 고릅니다. 없으면 <span class="k">＋ 새 예배</span> → 날짜를 클릭하고 종류 버튼(주일 1부~4부·주일오후·수요/금요기도회·특별집회·청년예배)을 누르세요.</li>
+        <li>들어가면 <b>[📥 자료 올리기]</b> / <b>[✅ 자막 담당자]</b> 중 하나를 고릅니다.</li>
       </ol>
       <div class="tip2">📱 휴대폰은 브라우저 메뉴에서 <b>“홈 화면에 추가”</b> 해두면 앱처럼 빠르게 열려요.</div>
 
       <span class="badge2">자료 올리는 분</span>
-      <h4>📥 자료 올리기</h4>
+      <h4>📥 자료 올리기 (4단계)</h4>
       <ol>
-        <li><b>📥 자료 올리기</b> 탭 → <b>종류 선택</b> (✝️설교자막 / 🎵찬양 콘티 / 🎼성가대 자막 / 📖성경 / 📢기타·광고 / 🎧음원·링크)</li>
-        <li><b>예배 순서</b>·<b>제목</b> 입력 후 내용 작성
+        <li><b>① 날짜</b> — 자막을 사용할 예배 날짜를 고릅니다.</li>
+        <li><b>② 예배</b> — 주일 1부~4부 · 주일오후 · 수요/금요기도회 · 특별집회 · 기타 중 선택.</li>
+        <li><b>③ 항목</b> — 📖성경구절 / ✍️자막 / 🎵찬양 콘티 / 🎼찬양 가사 / 🎧기타 음원·링크 중 선택.</li>
+        <li><b>④ 입력</b>
           <ul style="margin:6px 0;padding-left:18px">
-            <li>🎵 찬양 콘티 · 🎼 성가대 자막: 가사 — <b>절 사이는 빈 줄</b>로 띄우면 슬라이드 자동 분할</li>
-            <li>📖 성경: <b>장·절만</b> (예: <span class="k">시편 23:1-4</span>)</li>
-            <li>✝️ 설교자막: 제목·대지 / 📢 기타·광고: 내용</li>
-            <li>🎧 음원·링크: 음원 파일 첨부 + 링크 주소 입력</li>
+            <li>📖 <b>성경구절</b>: <b>장·절만</b> (예: <span class="k">시편 23:1-4</span>)</li>
+            <li>✍️ <b>자막</b>: 띄울 내용을 입력 (빈 줄 = 슬라이드 분할)</li>
+            <li>🎵 <b>찬양 콘티</b>: 진행·순서 설명을 입력</li>
+            <li>🎼 <b>찬양 가사</b>: 가사 — <b>절 사이는 빈 줄</b>로 띄우면 슬라이드 자동 분할 (저장고 불러오기 가능)</li>
+            <li>🎧 <b>기타 음원·링크</b>: 음원 파일 첨부 + 링크 주소</li>
           </ul>
         </li>
-        <li><b>📎 콘티 첨부</b>(선택) — 사진 여러 장·PDF 끌어다 놓기 (직접 입력 대신/함께)</li>
-        <li><b>📝 설명(콘티 순서)</b>(선택) — 예: <span class="k">1절 → 후렴 → 2절</span></li>
-        <li><b>＋ 등록하기</b> → 끝! (잘못 올리면 검수보드에서 삭제 후 다시)</li>
+        <li>필요하면 <b>📎 파일 첨부</b>·<b>📝 설명</b>을 더하고 <b>＋ 등록하기</b>. 등록하면 다시 항목 선택으로 돌아가 계속 올릴 수 있어요.</li>
       </ol>
 
       <span class="badge2">방송실 자막 담당</span>
       <h4>✅ 검수 & 내보내기</h4>
       <ol>
-        <li><b>✅ 검수 보드</b> — 예배 순서대로 정렬. 📎첨부·💬설명 표시, <b>누락 항목 자동 알림</b>, 새 자료 <b>실시간 갱신</b></li>
-        <li><b>“확인하기”</b> → 미리보기(슬라이드·콘티·설명) 확인 후 <b>✓ 검수완료</b></li>
+        <li><b>✅ 검수 보드</b> — 위에서 예배를 고르면 자료가 순서대로 정렬. 📎첨부·💬설명 표시, <b>누락 자동 알림</b>, <b>실시간 갱신</b></li>
+        <li><b>“확인하기”</b> → 미리보기(슬라이드·콘티·음원·설명) 확인 후 <b>✓ 검수완료</b></li>
         <li><b>⬇️ ProPresenter용 전체 내보내기(.txt)</b> → ProPresenter <b>[텍스트 가져오기]</b>로 불러오면 빈 줄마다 새 슬라이드 생성</li>
         <li>📖 성경은 ProPresenter 내장 <b>개역개정</b>에서 해당 장·절을 불러오면 됩니다.</li>
       </ol>
@@ -376,11 +457,25 @@ const SUPABASE_URL  = "https://qhgxhbmpvxliautdyzik.supabase.co";
 const SUPABASE_ANON = "sb_publishable_fLs1wJFfpy1bBcLwoNxO8g_CbmQcWB4";
 /* ============================================================================== */
 
-let sb=null, ME=null, cur=null, curType='song', mItem=null, pendingFiles=[], rtTimer=null;
+let sb=null, ME=null, cur=null, mItem=null, pendingFiles=[], rtTimer=null;
+let wDate=null, wType=null;
 let DB={config:{shared_pw:'',names:[],checklist:[]}, services:[], items:[], lib:[]};
 const MAXFILE=10*1024*1024; // 10MB
 
-const TYPE={sermon:['✝️ 설교자막','b-sermon'],song:['🎵 찬양 콘티','b-song'],choir:['🎼 성가대 자막','b-choir'],bible:['📖 성경','b-bible'],ad:['📢 기타/광고','b-ad'],audio:['🎧 음원·링크','b-audio']};
+/* 항목 종류 (현재) + 구 데이터 표시용 별칭 */
+const TYPE={
+  bible:['📖 성경구절','b-bible'],
+  caption:['✍️ 자막','b-sermon'],
+  conti:['🎵 찬양 콘티','b-song'],
+  lyrics:['🎼 찬양 가사','b-choir'],
+  media:['🎧 음원·링크','b-audio'],
+  /* legacy */
+  song:['🎵 찬양','b-song'],sermon:['✝️ 설교','b-sermon'],ad:['📢 광고','b-ad'],choir:['🎼 성가대','b-choir'],audio:['🎧 음원','b-audio']
+};
+function ty(t){ return TYPE[t]||['• 기타','b-ad']; }
+/* 단계③ 항목 버튼: [type, 아이콘, 이름] */
+const ITEMS=[['bible','📖','성경구절'],['caption','✍️','자막'],['conti','🎵','찬양 콘티'],['lyrics','🎼','찬양 가사'],['media','🎧','기타 음원·링크']];
+
 function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function fmtShort(iso){ if(!iso) return ''; const d=new Date(iso); return (d.getMonth()+1)+'/'+d.getDate(); }
 function curLabel(){ const s=DB.services.find(x=>x.id===cur); return s?s.label:''; }
@@ -398,6 +493,7 @@ function boot(){
  document.querySelector('[data-tab=settings]').addEventListener('click',openSettings);
  document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
  document.getElementById('svcModal').addEventListener('click',e=>{if(e.target.id==='svcModal')closeSvcModal();});
+ document.getElementById('libModal').addEventListener('click',e=>{if(e.target.id==='libModal')closeLibPick();});
  document.getElementById('helpModal').addEventListener('click',e=>{if(e.target.id==='helpModal')closeHelp();});
 }
 
@@ -428,8 +524,37 @@ async function doLogin(){
  document.getElementById('app').style.display='block';
  await refresh();
  subscribeRealtime();
+ goHome();
 }
 function logout(){ location.reload(); }
+
+/* ---------- role navigation ---------- */
+function goHome(){
+ document.getElementById('roleScreen').style.display='block';
+ document.getElementById('wizard').style.display='none';
+ document.getElementById('staff').style.display='none';
+ document.getElementById('homeBtn').style.display='none';
+ document.getElementById('roleTag').textContent='';
+}
+function enterUpload(){
+ document.getElementById('roleScreen').style.display='none';
+ document.getElementById('staff').style.display='none';
+ document.getElementById('wizard').style.display='block';
+ document.getElementById('homeBtn').style.display='inline-block';
+ document.getElementById('roleTag').textContent=' · 자료 올리기';
+ document.getElementById('w_date').value=new Date().toISOString().slice(0,10);
+ wDate=null; wType=null;
+ wToStep(1);
+}
+function enterStaff(){
+ document.getElementById('roleScreen').style.display='none';
+ document.getElementById('wizard').style.display='none';
+ document.getElementById('staff').style.display='block';
+ document.getElementById('homeBtn').style.display='inline-block';
+ document.getElementById('roleTag').textContent=' · 자막 담당자';
+ tab('board',document.querySelector('[data-tab=board]'));
+ refresh();
+}
 
 /* ---------- data refresh ---------- */
 async function refresh(){
@@ -455,12 +580,14 @@ function queueRefresh(){ clearTimeout(rtTimer); rtTimer=setTimeout(refresh,600);
 
 /* ---------- service ---------- */
 function fillServiceSel(){
- const s=document.getElementById('svcSel'); s.innerHTML='';
+ const s=document.getElementById('svcSel'); if(!s) return; s.innerHTML='';
  DB.services.forEach(sv=>{const o=document.createElement('option');o.value=sv.id;o.textContent=sv.label;s.appendChild(o);});
  if(cur) s.value=cur;
 }
 function switchService(){ cur=document.getElementById('svcSel').value; refresh(); }
-const SVC_PRESETS=["주일 1부","주일 2부","주일 3부","주일 4부","주일오후","수요기도회","금요기도회","특별집회 & 기타","청년예배"];
+const SVC_PRESETS=["주일 1부","주일 2부","주일 3부","주일 4부","주일오후","수요기도회","금요기도회","특별집회","기타"];
+
+/* 담당자용 새 예배 모달 */
 function renderPresets(){
  document.getElementById('svcPresets').innerHTML=SVC_PRESETS.map(p=>`<button type="button" onclick="pickPreset(this,'${p}')">${p}</button>`).join('');
 }
@@ -488,36 +615,72 @@ async function createService(){
  closeSvcModal(); cur=data.id; await refresh(); toast('추가되었습니다');
 }
 
-/* ---------- tabs / type ---------- */
-function tab(id,btn){
- document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
- document.getElementById(id).classList.add('on');
- document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('on'));
- (btn||document.querySelector('[data-tab='+id+']')).classList.add('on');
+/* ---------- wizard ---------- */
+function wToStep(n){
+ for(let i=1;i<=4;i++){ const e=document.getElementById('wstep'+i); if(e) e.style.display=(i===n)?'block':'none'; }
+ if(n===2) buildStep2();
+ if(n===3) buildStep3();
+ document.querySelectorAll('#stepBar .stepdot').forEach((d,idx)=>{
+   d.classList.toggle('on', idx+1<=n);
+   d.classList.toggle('cur', idx+1===n);
+ });
 }
-function pickType(t,btn){
- curType=t;
- document.querySelectorAll('#typeBtns button').forEach(b=>b.classList.remove('on'));
- btn.classList.add('on');
- document.getElementById('bibleBox').style.display=t==='bible'?'block':'none';
- document.getElementById('sermonBox').style.display=t==='sermon'?'block':'none';
- document.getElementById('audioBox').style.display=t==='audio'?'block':'none';
- const lbl=document.getElementById('bodyLabel'), body=document.getElementById('bodyBox'), songLib=document.getElementById('songFromLib');
- body.style.display = (t==='bible'||t==='audio') ? 'none':'block';
- songLib.style.display = t==='song' ? 'block':'none';
- lbl.textContent = (t==='song'||t==='choir')?'가사를 적으세요 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'
-   : t==='ad'?'내용을 적으세요 (광고·기타)' : t==='sermon'?'설교 본문/핵심 구절 (선택)':'내용을 적으세요';
+function step1Next(){
+ const v=document.getElementById('w_date').value;
+ if(!v){ alert('날짜를 선택하세요'); return; }
+ wDate=v; wToStep(2);
 }
-function addDaeji(){
- const d=document.createElement('div'); d.className='daeji';
- d.innerHTML='<input placeholder="대지 입력"><button class="btn ghost sm" onclick="this.parentNode.remove()">✕</button>';
- document.getElementById('daejiList').appendChild(d);
+function buildStep2(){
+ document.getElementById('w_dateLabel').textContent='📅 '+wDate+' 에 사용할 예배를 고르세요';
+ document.getElementById('w_svcBtns').innerHTML=SVC_PRESETS.map(p=>`<button type="button" class="bigchip" onclick="pickService('${p}')">${p}</button>`).join('');
+}
+async function pickService(name){
+ const label=wDate+' · '+name;
+ let svc=DB.services.find(s=>s.label===label);
+ if(!svc){
+   const {data,error}=await sb.from('services').insert({label,svc_date:wDate}).select().single();
+   if(error){ alert('예배 생성 실패: '+error.message); return; }
+   svc=data;
+ }
+ cur=svc.id;
+ await refresh();
+ wToStep(3);
+}
+function buildStep3(){
+ document.getElementById('w_svcLabel').textContent='📋 '+curLabel();
+ document.getElementById('w_typeBtns').innerHTML=ITEMS.map(it=>
+   `<button type="button" class="bigtype" onclick="pickItem('${it[0]}')"><span class="ic">${it[1]}</span><span>${it[2]}</span></button>`).join('');
+ renderWizList(sorted());
+}
+function pickItem(t){
+ wType=t;
+ document.getElementById('f_title').value='';
+ document.getElementById('f_ref').value='';
+ document.getElementById('f_text').value='';
+ document.getElementById('f_link').value='';
+ document.getElementById('f_note').value='';
+ clearFile();
+ document.getElementById('f_order').value=(DB.items.length+1);
+
+ document.getElementById('f_bibleBox').style.display = t==='bible'?'block':'none';
+ document.getElementById('f_textBox').style.display  = (t==='caption'||t==='conti'||t==='lyrics')?'block':'none';
+ document.getElementById('f_mediaBox').style.display = t==='media'?'block':'none';
+ document.getElementById('f_libBtns').style.display  = t==='lyrics'?'block':'none';
+
+ const L=ty(t);
+ document.getElementById('w_formHead').textContent='④ '+L[0]+' 입력';
+ document.getElementById('w_formSvc').textContent='📋 '+curLabel();
+ const tl=document.getElementById('f_textLabel'), ta=document.getElementById('f_text');
+ if(t==='lyrics'){ tl.textContent='가사 (절 사이는 빈 줄로 구분 → 슬라이드 자동 분할)'; ta.placeholder='가사를 붙여넣으세요'; }
+ else if(t==='conti'){ tl.textContent='찬양 콘티 설명 (진행·순서 등)'; ta.placeholder='예: 1곡 주 은혜임을(1절→후렴) → 2곡 ...'; }
+ else if(t==='caption'){ tl.textContent='자막 내용 (빈 줄 = 슬라이드 분할)'; ta.placeholder='자막으로 띄울 내용을 입력하세요'; }
+ wToStep(4);
 }
 
 /* ---------- file attach ---------- */
 function handleFiles(files){
  [...(files||[])].forEach(f=>{
-  if(f.size>MAXFILE){ alert(`"${f.name}" 은(는) 10MB를 넘어 건너뜁니다.`); return; }
+  if(f.size>MAXFILE){ alert(`"${f.name}" 은(는) 10MB를 넘어 건너뜁니다. (큰 음원은 링크 주소를 이용하세요)`); return; }
   const r=new FileReader();
   r.onload=()=>{ pendingFiles.push({name:f.name,type:f.type,size:f.size,dataUrl:r.result,file:f}); renderFilePreview(); };
   r.readAsDataURL(f);
@@ -535,7 +698,7 @@ function renderFilePreview(){
   }).join('')+'</div>';
 }
 function removeFile(i){ pendingFiles.splice(i,1); renderFilePreview(); }
-function clearFile(){ pendingFiles=[]; document.getElementById('fileInput').value=''; renderFilePreview(); }
+function clearFile(){ pendingFiles=[]; const fi=document.getElementById('fileInput'); if(fi) fi.value=''; renderFilePreview(); }
 function setupDrop(){
  const z=document.getElementById('dropZone');
  ['dragenter','dragover'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.add('over');}));
@@ -558,93 +721,101 @@ async function uploadFiles(itemId){
 
 /* ---------- submit ---------- */
 async function submitItem(){
- if(!cur){ alert('먼저 위에서 예배를 선택하거나 [＋ 새 예배]를 만드세요'); return; }
+ if(!cur){ alert('예배가 선택되지 않았습니다.'); return; }
+ const t=wType;
  const order=parseInt(document.getElementById('f_order').value)||(DB.items.length+1);
  let title=document.getElementById('f_title').value.trim();
  let body='';
- if(curType==='bible'){
+ if(t==='bible'){
   const ref=document.getElementById('f_ref').value.trim();
   if(!ref && !pendingFiles.length){ alert('성경 구절(장·절)을 입력하세요'); return; }
-  body=ref;
-  if(!title) title= ref ? ('본문 봉독 · '+ref) : '본문 봉독';
- } else if(curType==='sermon'){
-  const daeji=[...document.querySelectorAll('#daejiList input')].map(i=>i.value.trim()).filter(Boolean);
-  const extra=document.getElementById('f_body').value.trim();
-  body=daeji.length||extra ? [title,...daeji].join('\n\n')+(extra?'\n\n'+extra:'') : '';
- } else if(curType==='audio'){
+  body=ref; if(!title) title= ref ? ('성경 · '+ref) : '성경구절';
+ } else if(t==='media'){
   const link=document.getElementById('f_link').value.trim();
   if(!link && !pendingFiles.length){ alert('음원 파일을 첨부하거나 링크 주소를 입력하세요'); return; }
-  body=link;
- } else {
-  body=document.getElementById('f_body').value.trim();
+  body=link; if(!title) title='음원·링크';
+ } else { /* caption / conti / lyrics */
+  body=document.getElementById('f_text').value.trim();
+  if(!body && !pendingFiles.length){ alert('내용을 입력하거나 파일을 첨부하세요'); return; }
+  if(!title){ const first=(body.split('\n').find(x=>x.trim())||'').trim(); title=first?first.slice(0,30):ty(t)[0]; }
  }
- if(!title){ alert('제목을 입력하세요'); return; }
- if(!body && !pendingFiles.length){ alert('내용을 직접 입력하거나 파일을 첨부하세요'); return; }
  const note=document.getElementById('f_note').value.trim();
 
  const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.textContent='등록 중…';
  try{
-  const {data,error}=await sb.from('items').insert({service_id:cur,type:curType,ord:order,title,author:ME,status:'wait',body,note}).select().single();
+  const {data,error}=await sb.from('items').insert({service_id:cur,type:t,ord:order,title,author:ME,status:'wait',body,note}).select().single();
   if(error) throw error;
   if(pendingFiles.length){ const files=await uploadFiles(data.id); await sb.from('items').update({files}).eq('id',data.id); }
-  document.getElementById('f_title').value='';document.getElementById('f_body').value='';
-  document.getElementById('f_note').value='';
-  document.getElementById('f_ref').value='';
-  document.getElementById('f_link').value='';
-  document.getElementById('daejiList').innerHTML='<div class="daeji"><input placeholder="1. 첫째 대지"></div>';
-  document.getElementById('f_order').value=order+1;
   clearFile();
   await refresh();
-  toast('등록되었습니다 ✓');
+  wToStep(3);
+  toast('등록되었습니다 ✓ — 다른 항목도 올릴 수 있어요');
  }catch(e){ alert('등록 실패: '+(e.message||e)); }
  finally{ btn.disabled=false; btn.textContent='＋ 등록하기'; }
 }
 
 /* ---------- render ---------- */
 function sorted(){ return [...DB.items].sort((a,b)=>a.order-b.order); }
+function renderWizList(items){
+ const c=document.getElementById('w_upCount'), l=document.getElementById('w_upList');
+ if(!l) return;
+ if(c) c.textContent=`총 ${items.length}건 · 검수완료 ${items.filter(i=>i.status==='ok').length}건`;
+ l.innerHTML = items.length? items.map(i=>`
+   <div class="libitem">
+     <div><span class="badge ${ty(i.type)[1]}">${ty(i.type)[0]}</span>
+     <b style="margin:0 8px">${i.order}. ${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}</b><span class="who">${esc(i.author)}</span></div>
+     <span class="st ${i.status==='ok'?'ok':'wait'}"><span class="dot ${i.status==='ok'?'ok':'wait'}"></span>${i.status==='ok'?'검수완료':'대기'}</span>
+   </div>`).join('') : '<div class="empty">아직 올라온 자료가 없습니다.</div>';
+}
 function render(){
  fillServiceSel();
  const items=sorted();
- document.getElementById('upCount').textContent=`총 ${items.length}건 · 검수완료 ${items.filter(i=>i.status==='ok').length}건`;
- document.getElementById('upList').innerHTML = items.length? items.map(i=>`
-   <div class="libitem">
-     <div><span class="badge ${TYPE[i.type][1]}">${TYPE[i.type][0]}</span>
-     <b style="margin:0 8px">${i.order}. ${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}</b><span class="who">${esc(i.author)} · 입력 ${fmtShort(i.created_at)}</span></div>
-     <span class="st ${i.status==='ok'?'ok':'wait'}"><span class="dot ${i.status==='ok'?'ok':'wait'}"></span>${i.status==='ok'?'검수완료':'검수 대기'}</span>
-   </div>`).join('') : '<div class="empty">아직 올라온 자료가 없습니다.</div>';
+ renderWizList(items);
 
- document.getElementById('boardTable').innerHTML = items.length? `
-  <table><thead><tr><th>순서</th><th>종류</th><th>제목</th><th class="hide-sm">올린이</th><th>상태</th><th>작업</th></tr></thead><tbody>
-  ${items.map(i=>`<tr ${i.status==='wait'?'style="background:#fffbeb"':''}>
-    <td><span class="ord">${i.order}</span></td>
-    <td><span class="badge ${TYPE[i.type][1]}">${TYPE[i.type][0]}</span></td>
-    <td>${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}${i.note?' 💬':''}</td>
-    <td class="hide-sm who">${esc(i.author)}</td>
-    <td><span class="st ${i.status==='ok'?'ok':'wait'}"><span class="dot ${i.status==='ok'?'ok':'wait'}"></span>${i.status==='ok'?'검수완료':'검수 대기'}</span></td>
-    <td><button class="btn ${i.status==='ok'?'ghost':''} sm" onclick="openModal('${i.id}')">${i.status==='ok'?'미리보기':'확인하기 →'}</button></td>
-   </tr>`).join('')}
-  </tbody></table>` : '<div class="empty">자료가 없습니다.</div>';
+ const bt=document.getElementById('boardTable');
+ if(bt){
+  bt.innerHTML = items.length? `
+   <table><thead><tr><th>순서</th><th>종류</th><th>제목</th><th class="hide-sm">올린이</th><th>상태</th><th>작업</th></tr></thead><tbody>
+   ${items.map(i=>`<tr ${i.status==='wait'?'style="background:#fffbeb"':''}>
+     <td><span class="ord">${i.order}</span></td>
+     <td><span class="badge ${ty(i.type)[1]}">${ty(i.type)[0]}</span></td>
+     <td>${esc(i.title)}${i.files&&i.files.length?' 📎'+i.files.length:''}${i.note?' 💬':''}</td>
+     <td class="hide-sm who">${esc(i.author)}</td>
+     <td><span class="st ${i.status==='ok'?'ok':'wait'}"><span class="dot ${i.status==='ok'?'ok':'wait'}"></span>${i.status==='ok'?'검수완료':'검수 대기'}</span></td>
+     <td><button class="btn ${i.status==='ok'?'ghost':''} sm" onclick="openModal('${i.id}')">${i.status==='ok'?'미리보기':'확인하기 →'}</button></td>
+    </tr>`).join('')}
+   </tbody></table>` : '<div class="empty">자료가 없습니다.</div>';
+ }
 
- const miss=DB.config.checklist.filter(c=>!items.some(i=>i.title.includes(c)||
-   (c.includes('찬양')&&i.type==='song')||(c.includes('광고')&&i.type==='ad')||(c.includes('설교')&&i.type==='sermon')||(c.includes('봉독')&&i.type==='bible')));
- const mb=document.getElementById('missBox'); mb.className='';
- mb.innerHTML = miss.length? `<div class="miss">⚠️ <b>아직 준비 안 된 항목</b>: ${miss.join(' · ')} — 누락을 자동으로 알려드립니다.</div>`
-   : `<div class="miss none">✅ 체크리스트 항목이 모두 준비되었습니다.</div>`;
+ const mb=document.getElementById('missBox');
+ if(mb){
+  const miss=DB.config.checklist.filter(c=>!items.some(i=>i.title.includes(c)||
+    (c.includes('찬양')&&(i.type==='conti'||i.type==='lyrics'||i.type==='song'||i.type==='choir')) ||
+    (c.includes('자막')&&(i.type==='caption'||i.type==='sermon')) ||
+    ((c.includes('성경')||c.includes('봉독'))&&i.type==='bible') ||
+    (c.includes('음원')&&i.type==='media') ||
+    (c.includes('광고')&&i.type==='ad') ));
+  mb.className='';
+  mb.innerHTML = miss.length? `<div class="miss">⚠️ <b>아직 준비 안 된 항목</b>: ${miss.join(' · ')} — 누락을 자동으로 알려드립니다.</div>`
+    : `<div class="miss none">✅ 체크리스트 항목이 모두 준비되었습니다.</div>`;
+ }
 
- document.getElementById('libList').innerHTML = DB.lib.length? DB.lib.map(l=>`
-   <div class="libitem"><div class="ttl">🎵 ${esc(l.title)}</div>
-   <div><button class="btn sec sm" onclick="useLib('${l.id}')">이 곡 불러오기</button>
-   <button class="btn ghost sm" onclick="delLib('${l.id}')" style="color:var(--danger)">삭제</button></div></div>`).join('')
-   : '<div class="empty">저장된 찬양이 없습니다.</div>';
+ const ll=document.getElementById('libList');
+ if(ll){
+  ll.innerHTML = DB.lib.length? DB.lib.map(l=>`
+    <div class="libitem"><div class="ttl">🎵 ${esc(l.title)}</div>
+    <button class="btn ghost sm" onclick="delLib('${l.id}')" style="color:var(--danger)">삭제</button></div>`).join('')
+    : '<div class="empty">저장된 찬양이 없습니다.</div>';
+ }
 }
 
 /* ---------- modal ---------- */
 function slidesOf(body){ return (body||'').split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean); }
 function openModal(id){
  mItem=DB.items.find(i=>i.id===id); if(!mItem) return;
- document.getElementById('mTitle').textContent=TYPE[mItem.type][0]+' — '+mItem.title;
- document.getElementById('mNote').innerHTML = mItem.note ? `<div class="mnote">📝 <b>설명(콘티 순서)</b>: ${esc(mItem.note)}</div>` : '';
- if(mItem.type==='audio'){
+ document.getElementById('mTitle').textContent=ty(mItem.type)[0]+' — '+mItem.title;
+ document.getElementById('mNote').innerHTML = mItem.note ? `<div class="mnote">📝 <b>설명</b>: ${esc(mItem.note)}</div>` : '';
+ if(mItem.type==='media'){
   const link=(mItem.body||'').trim();
   document.getElementById('mSlides').innerHTML= link
     ? `<div class="slide">🎧 음원 링크<br><a href="${esc(link)}" target="_blank" rel="noopener" style="word-break:break-all">${esc(link)}</a></div>`
@@ -660,7 +831,7 @@ function openModal(id){
  const mf=document.getElementById('mFile');
  const files=mItem.files||[];
  if(files.length){
-  mf.innerHTML=`<div class="mfile"><h4>📎 첨부 콘티 (${files.length}개)</h4>`+
+  mf.innerHTML=`<div class="mfile"><h4>📎 첨부 파일 (${files.length}개)</h4>`+
    files.map(f=>{
     const t=(f.type||'')+(f.name||'').toLowerCase();
     const isImg=t.includes('image')||/\.(jpg|jpeg|png|gif|webp)/.test(t);
@@ -708,14 +879,14 @@ function exportOne(){ download(mItem.order+'_'+mItem.title+'.txt', ppText(mItem)
 function exportAll(){
  const ok=sorted().filter(i=>i.status==='ok');
  if(!ok.length){ alert('검수완료된 자료가 없습니다.'); return; }
- const out=ok.map(i=>`=== ${i.order}. [${TYPE[i.type][0]}] ${i.title} ===\n\n`+ppText(i)).join('\n\n\n');
+ const out=ok.map(i=>`=== ${i.order}. [${ty(i.type)[0]}] ${i.title} ===\n\n`+ppText(i)).join('\n\n\n');
  download((curLabel()||'예배').replace(/[\\/:*?"<>|]/g,'_')+'_자막.txt', out);
  toast(`검수완료 ${ok.length}건 내보냄`);
 }
 function printWeek(){
  const ok=sorted();
  document.getElementById('print').innerHTML=`<h2>${esc(curLabel())} — 자막 자료</h2>`+
-  ok.map(i=>`<div class="pitem"><h3>${i.order}. [${TYPE[i.type][0]}] ${esc(i.title)} <small>(${esc(i.author)} · ${i.status==='ok'?'검수완료':'검수대기'})</small></h3><div style="white-space:pre-wrap;line-height:1.7">${esc(i.body)}</div></div>`).join('');
+  ok.map(i=>`<div class="pitem"><h3>${i.order}. [${ty(i.type)[0]}] ${esc(i.title)} <small>(${esc(i.author)} · ${i.status==='ok'?'검수완료':'검수대기'})</small></h3><div style="white-space:pre-wrap;line-height:1.7">${esc(i.body)}</div></div>`).join('');
  window.print();
 }
 
@@ -729,20 +900,29 @@ async function addLib(){
  await refresh(); toast('저장고에 추가됨');
 }
 async function delLib(id){ if(!confirm('삭제할까요?'))return; await sb.from('songs').delete().eq('id',id); await refresh(); }
-function useLib(id){
- const l=DB.lib.find(x=>x.id===id); if(!l) return;
- pickType('song',document.querySelector('[data-type=song]'));
- tab('upload',document.querySelector('[data-tab=upload]'));
- document.getElementById('f_title').value=l.title; document.getElementById('f_body').value=l.body;
- toast('불러왔습니다 — 순서 확인 후 등록하세요');
-}
 async function saveToLib(){
- const t=document.getElementById('f_title').value.trim(), b=document.getElementById('f_body').value.trim();
+ const t=document.getElementById('f_title').value.trim(), b=document.getElementById('f_text').value.trim();
  if(!t||!b){ alert('제목과 가사를 먼저 입력하세요'); return; }
  const {error}=await sb.from('songs').insert({title:t,body:b});
  if(error){ alert('저장 실패: '+error.message); return; }
  await refresh(); toast('저장고에 저장됨');
 }
+/* 가사 불러오기 (마법사 안에서) */
+function openLibPick(){
+ const el=document.getElementById('libPickList');
+ el.innerHTML = DB.lib.length? DB.lib.map(l=>`
+   <div class="libitem"><div class="ttl">🎵 ${esc(l.title)}</div>
+   <button class="btn sec sm" onclick="useLibPick('${l.id}')">이 곡 넣기</button></div>`).join('')
+   : '<div class="empty">저장된 찬양이 없습니다.<br><span style="font-size:12px">자막 담당자 → 찬양 저장고에서 추가할 수 있어요.</span></div>';
+ document.getElementById('libModal').classList.add('on');
+}
+function useLibPick(id){
+ const l=DB.lib.find(x=>x.id===id); if(!l) return;
+ if(!document.getElementById('f_title').value.trim()) document.getElementById('f_title').value=l.title;
+ document.getElementById('f_text').value=l.body;
+ closeLibPick(); toast('가사를 불러왔습니다 — 확인 후 등록하세요');
+}
+function closeLibPick(){ document.getElementById('libModal').classList.remove('on'); }
 
 /* ---------- copy from last ---------- */
 async function copyFromLastPrompt(){
@@ -757,6 +937,14 @@ async function copyFromLastPrompt(){
  const {error}=await sb.from('items').insert(rows);
  if(error){ alert('가져오기 실패: '+error.message); return; }
  await refresh(); toast('지난 예배 자료를 가져왔습니다 (검수 대기)');
+}
+
+/* ---------- tabs ---------- */
+function tab(id,btn){
+ document.querySelectorAll('#staff .view').forEach(v=>v.classList.remove('on'));
+ document.getElementById(id).classList.add('on');
+ document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('on'));
+ (btn||document.querySelector('[data-tab='+id+']')).classList.add('on');
 }
 
 /* ---------- settings ---------- */
@@ -775,7 +963,7 @@ async function saveSettings(){
 }
 
 /* ---------- toast ---------- */
-let tT; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('on'),2000); }
+let tT; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('on'),2200); }
 
 boot();
 </script>
