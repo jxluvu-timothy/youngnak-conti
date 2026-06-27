@@ -452,7 +452,7 @@
       <h4>📥 자료 올리기 (4단계)</h4>
       <ol>
         <li><b>① 날짜</b> — 자막을 사용할 예배 날짜를 고릅니다.</li>
-        <li><b>② 예배</b> — 주일 1부~4부 · 주일오후 · 수요/금요기도회 · 특별집회 · 기타 중 선택.</li>
+        <li><b>② 예배</b> — 주일 1부~4부 · 주일오후 · 수요/금요기도회 · 특별집회 · 청년예배 중 선택.</li>
         <li><b>③ 항목</b> — 📖성경구절 / ✍️자막 / 🎵찬양 콘티 / 🎼찬양 가사 / 🎧기타 음원·링크 중 선택.</li>
         <li><b>④ 입력</b>
           <ul style="margin:6px 0;padding-left:18px">
@@ -617,7 +617,7 @@ function fillServiceSel(){
  if(cur) s.value=cur;
 }
 function switchService(){ cur=document.getElementById('svcSel').value; refresh(); }
-const SVC_PRESETS=["주일 1부","주일 2부","주일 3부","주일 4부","주일오후","수요기도회","금요기도회","특별집회","기타"];
+const SVC_PRESETS=["주일 1부","주일 2부","주일 3부","주일 4부","주일오후","수요기도회","금요기도회","특별집회","청년예배"];
 
 /* 담당자용 새 예배 모달 */
 function renderPresets(){
